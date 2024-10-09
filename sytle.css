@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
 }
-/* *=전체선택자, 모든걸 선택해서 안쪽,바깥족여백을 모두 지움 */
+/* *=전체선택자, 모든걸 선택해서 안쪽,바깥쪽여백을 모두 지움 */
 .canvas {
   border: 3px solid black;
   background: burlywood;
