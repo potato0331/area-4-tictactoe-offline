@@ -19,7 +19,7 @@ class area4 {
       inputX: Math.floor((offsetX - this.sideMargin) / this.blockinterval),
       inputY: Math.floor((offsetY - this.sideMargin) / this.blockinterval),
     };
-  }
+  } //클릭된 위치의 좌표값을 기반으로 칸의 위치를 구함
 
   getBoardPosition(inputX, inputY) {
     return {
@@ -28,7 +28,7 @@ class area4 {
       boardY:
         inputY * this.blockinterval + this.blockinterval / 2 + this.sideMargin,
     };
-  }
+  } //칸의 위치값을 기반으로 그 칸의 중심점의 좌표값을 구함
 
   getNextcolor() {
     if (this.mainBoard.length == 0) {
@@ -67,8 +67,8 @@ class area4 {
     ctx.fill(); // 색 채우기
   }
 
-  checkAvailableMove(MoveInfo) {
-    // 각각의 칸을 0~80의 숫자로 표현
+  getAllAvailableMove() {
+    //각각의 칸을 0~80의 숫자로 표현
     //인덱스->좌표 변환식은 x=index % 9 y=Math.floor(index / 9)
     //좌표->인덱스 변환식은 x+9*y
     let AvailableMoveList = new Array();
@@ -88,7 +88,9 @@ class area4 {
       }
     } else {
       // 첫 수가 아닐경우
-      let { AreaX, AreaY } = this.checkArea(MoveInfo);
+      let { AreaX, AreaY } = this.checkArea(
+        this.mainBoard[this.mainBoard.length - 1]
+      );
       let NWsquare = 3 * AreaX + 27 * AreaY;
       let AvailableArea = [
         NWsquare,
@@ -170,9 +172,6 @@ class area4 {
     }
     // 바둑알 그리기
 
-    this.drawAvailableMove(
-      ctx,
-      this.checkAvailableMove(this.mainBoard[this.mainBoard.length - 1])
-    );
+    this.drawAvailableMove(ctx, this.getAllAvailableMove());
   }
 }
