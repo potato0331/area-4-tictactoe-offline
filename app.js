@@ -1,7 +1,7 @@
 const canvas = document.querySelector(".canvas");
 const context = canvas.getContext("2d");
 const resetButton = document.querySelector(".reset");
-const moveSound = new Audio("TAK.WAV");
+const moveSound = new Audio("resources/TAK.WAV");
 
 let area4game = new area4();
 area4game.drawboard(context);
