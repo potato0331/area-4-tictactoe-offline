@@ -1,17 +1,16 @@
 class area4 {
   VACANT = " ";
   BLACK = "black";
-  WHITE = "white";
+  WHITE = "white"; //가이드에서 하래서 했는데 그래서 이거 ㅅㅂ 왜하는거임 상수선언의 의의란 뭘가...
   blockinterval = 68;
-  sideMargin = 18;
+  sideMargin = 18;//"왼쪽으로 1픽셀만 옮겨주세요!"가 왜 죽일놈인지 알거같기도 합니다
+  gameEndFlag = false;
 
   mainBoard = new Array();
   boardArray;
-  scoreArray;
 
   constructor() {
-    this.boardArray = Array.from(Array(10), () => new Array(10).fill(" "));
-    this.scoreArray = Array.from(Array(10), () => new Array(10).fill(1)); //본문에 설명이 없어서 일단 만듬, ai관련기능이면 지우기
+    this.boardArray = Array.from(Array(9), () => new Array(9).fill(" "));
   }
 
   getPosition(offsetX, offsetY) {
@@ -41,13 +40,16 @@ class area4 {
   } // mainboard의 이전 턴 정보에서 색을 뺴옴
 
   putStone(inputX, inputY) {
+    this.boardArray[inputY][inputX] = this.getNextcolor();
+    //boardArray에 착수정보 저장
     let MoveInfo = Object.create(null);
     MoveInfo.x = inputX;
     MoveInfo.y = inputY;
     MoveInfo.color = this.getNextcolor();
     MoveInfo.order = this.mainBoard.length + 1;
     this.mainBoard.push(MoveInfo);
-  } //그 수의 정보를 mainBoard에 입력
+    //그 수의 정보를 mainBoard에 입력
+  }
 
   checkArea(MoveInfo) {
     return { AreaX: MoveInfo.x % 3, AreaY: MoveInfo.y % 3 };
@@ -172,6 +174,130 @@ class area4 {
     }
     // 바둑알 그리기
 
-    this.drawAvailableMove(ctx, this.getAllAvailableMove());
+    if (!this.gameEndFlag) {
+      //게임이 끝난게 아니라면
+      this.drawAvailableMove(ctx, this.getAllAvailableMove());
+    }
+    //착수 가능한 영역을 노란 사각형으로 표시하기
+  }
+
+  checkWin(boardX, boardY) {
+    //*주의* ssibal fucking long 내가 이거 언젠가는 최적화하고만다 ㅅㅂ
+    let color = this.boardArray[boardY][boardX];
+    let winFlag = false;
+
+    //가로방향
+    let rowCount = 0;
+    for (let i = 1; i < 4; i++) {
+      //가로방향-왼쪽방향
+      if (boardX - i < 0) {
+        break;
+      } //보드판 밖으로 나가면 break
+      if (this.boardArray[boardY][boardX - i] == color) {
+        rowCount++;
+      } else {
+        break;
+      } //색이 다르거나 없으면 break
+    }
+    for (let i = 1; i < 4; i++) {
+      //가로방향-오른쪽방향
+      if (boardX + i > 8) {
+        break;
+      }
+      if (this.boardArray[boardY][boardX + i] == color) {
+        rowCount++;
+      } else {
+        break;
+      }
+    }
+    if (rowCount >= 3) {
+      winFlag = true;
+    } //가로방향을 합쳐서 3이상이면(착수된 돌 포함4개) winFlag에 표시
+
+    //세로방향
+    let columnCount = 0;
+    for (let i = 1; i < 4; i++) {
+      //세로방향-위쪽방향
+      if (boardY - i < 0) {
+        break;
+      }
+      if (this.boardArray[boardY - i][boardX] == color) {
+        columnCount++;
+      } else {
+        break;
+      }
+    }
+    for (let i = 1; i < 4; i++) {
+      //가로방향-아래쪽방향
+      if (boardY + i > 8) {
+        break;
+      }
+      if (this.boardArray[boardY + i][boardX] == color) {
+        columnCount++;
+      } else {
+        break;
+      }
+    }
+    if (columnCount >= 3) {
+      winFlag = true;
+    }
+
+    //좌상단-우하단대각선방향
+    let NWtoSEdiagonalCount = 0;
+    for (let i = 1; i < 4; i++) {
+      //좌상단방향
+      if (boardY - i < 0 || boardX - i < 0) {
+        break;
+      }
+      if (this.boardArray[boardY - i][boardX - i] == color) {
+        NWtoSEdiagonalCount++;
+      } else {
+        break;
+      }
+    }
+    for (let i = 1; i < 4; i++) {
+      //우하단방향
+      if (boardY + i > 8 || boardX + i > 8) {
+        break;
+      }
+      if (this.boardArray[boardY + i][boardX + i] == color) {
+        NWtoSEdiagonalCount++;
+      } else {
+        break;
+      }
+    }
+    if (NWtoSEdiagonalCount >= 3) {
+      winFlag = true;
+    }
+
+    //우상단-좌하단대각선 방향
+    let NEtoSWdiagonalCount = 0;
+    for (let i = 1; i < 4; i++) {
+      //우상단방향
+      if (boardY - i < 0 || boardX + i > 8) {
+        break;
+      }
+      if (this.boardArray[boardY - i][boardX + i] == color) {
+        NEtoSWdiagonalCount++;
+      } else {
+        break;
+      }
+    }
+    for (let i = 1; i < 4; i++) {
+      //우하단방향
+      if (boardY + i > 8 || boardX - i < 0) {
+        break;
+      }
+      if (this.boardArray[boardY + i][boardX - i] == color) {
+        NEtoSWdiagonalCount++;
+      } else {
+        break;
+      }
+    }
+    if (NEtoSWdiagonalCount >= 3) {
+      winFlag = true;
+    }
+
+    return winFlag;
   }
 }

@@ -12,6 +12,10 @@ resetButton.addEventListener("click", () => {
 });
 
 canvas.addEventListener("click", (e) => {
+  if (area4game.gameEndFlag) {
+    return;
+  }
+
   let { inputX, inputY } = area4game.getPosition(e.offsetX, e.offsetY);
 
   if (inputX < 0 || inputX > 8 || inputY < 0 || inputY > 8) {
@@ -32,4 +36,16 @@ canvas.addEventListener("click", (e) => {
   area4game.putStone(inputX, inputY); //수 정보 입력
   moveSound.play();
   area4game.drawboard(context);
+  if (area4game.checkWin(inputX, inputY)) {
+    setTimeout(() => {
+      if (area4game.getNextcolor() == "white") {
+        alert("BLACK WIN!");
+      } //setTimeout이 비동기 함수이기 때문에, alert가 drawboard의 작용을 막지 않는다. 지리네
+      else {
+        alert("WHITE WIN!");
+      }
+    });
+    area4game.gameEndFlag = true;
+    area4game.drawboard(context);
+  }
 });
