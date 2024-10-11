@@ -3,7 +3,7 @@ class area4 {
   BLACK = "black";
   WHITE = "white"; //가이드에서 하래서 했는데 그래서 이거 ㅅㅂ 왜하는거임 상수선언의 의의란 뭘가...
   blockinterval = 68;
-  sideMargin = 18;//"왼쪽으로 1픽셀만 옮겨주세요!"가 왜 죽일놈인지 알거같기도 합니다
+  sideMargin = 18; //"왼쪽으로 1픽셀만 옮겨주세요!"가 왜 죽일놈인지 알거같기도 합니다
   gameEndFlag = false;
 
   mainBoard = new Array();
@@ -115,6 +115,19 @@ class area4 {
         }
       }
     }
+
+    if (AvailableMoveList.length == 0) {
+      //만약 영역이 가득차 착수가 불가능 하다면, 겹치는 칸을 제외하고 전부 착수가능
+      for (let i = 0; i < 81; i++) {
+        let occupied = this.mainBoard.find(
+          (point) => point.x == i % 9 && point.y == Math.floor(i / 9)
+        );
+        if (occupied === undefined) {
+          AvailableMoveList.push(i);
+        }
+      }
+    }
+
     return AvailableMoveList;
   }
 
