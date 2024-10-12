@@ -1,6 +1,7 @@
 const canvas = document.querySelector(".canvas");
 const context = canvas.getContext("2d");
 const resetButton = document.querySelector(".reset");
+const undoButton = document.querySelector(".undo");
 const moveSound = new Audio("resources/TAK.wav");
 
 let area4game = new area4();
@@ -10,6 +11,11 @@ resetButton.addEventListener("click", () => {
   area4game = new area4();
   area4game.drawboard(context);
 });
+
+undoButton.addEventListener("click", () =>{
+  area4game.mainBoard.pop();
+  area4game.drawboard(context);
+})
 
 canvas.addEventListener("click", (e) => {
   if (area4game.gameEndFlag) {
