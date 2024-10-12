@@ -133,6 +133,7 @@ class area4 {
 
   drawAvailableMove(ctx, MoveList) {
     for (let i of MoveList) {
+      //i는 getAllAvailableMove함수의 결과값인 인덱스 값의 집합
       let { boardX, boardY } = this.getBoardPosition(i % 9, Math.floor(i / 9));
       boardX -= 29;
       boardY -= 29; // 사각형 크기의 절반-getBoardPosition함수가 구해다주는 위치가 사각형의 중앙이기 때문에, 위치를 좌상단으로 옮겨줘야 함
@@ -140,6 +141,20 @@ class area4 {
       ctx.lineWidth = 4;
       ctx.strokeRect(boardX, boardY, 58, 58);
     }
+  }
+
+  drawLastStone(ctx) {
+    if (this.mainBoard.length == 0) {
+      return;
+    }
+    let { boardX, boardY } = this.getBoardPosition(
+      this.mainBoard[this.mainBoard.length - 1].x,
+      this.mainBoard[this.mainBoard.length - 1].y
+    );
+    ctx.beginPath(); //새 선 그릴 준비
+    ctx.fillStyle = this.getNextcolor();
+    ctx.arc(boardX, boardY, 5, 0, 2 * Math.PI);
+    ctx.fill(); // 색 채우기
   }
 
   drawboard(ctx) {
@@ -186,6 +201,9 @@ class area4 {
       this.drawStone(ctx, MoveInfo);
     }
     // 바둑알 그리기
+
+    this.drawLastStone(ctx);
+    //두어진 수에 빨간 표시
 
     if (!this.gameEndFlag) {
       //게임이 끝난게 아니라면
