@@ -12,10 +12,10 @@ resetButton.addEventListener("click", () => {
   area4game.drawboard(context);
 });
 
-undoButton.addEventListener("click", () =>{
+undoButton.addEventListener("click", () => {
   area4game.mainBoard.pop();
   area4game.drawboard(context);
-})
+});
 
 canvas.addEventListener("click", (e) => {
   if (area4game.gameEndFlag) {
@@ -30,9 +30,9 @@ canvas.addEventListener("click", (e) => {
 
   if (
     // getAllAvailableMove 함수에서 지금 착수 한 곳의 index값을 찾을 수 없다면
-    !area4game
+    area4game
       .getAllAvailableMove()
-      .find((element) => element == inputX + 9 * inputY)
+      .find((element) => element == inputX + 9 * inputY) === undefined
   ) {
     //착수 할 수 없는 곳 이므로 클릭시 무시
     alert("착수 할 수 없는 곳 입니다.");
