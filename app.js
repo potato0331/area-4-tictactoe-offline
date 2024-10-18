@@ -2,13 +2,37 @@ const canvas = document.querySelector(".canvas");
 const context = canvas.getContext("2d");
 const resetButton = document.querySelector(".reset");
 const undoButton = document.querySelector(".undo");
+const firstrestrictButton = document.getElementsByName("firstrestrict");
 const moveSound = new Audio("resources/TAK.wav");
 
-let area4game = new area4();
+let firstrestrict;
+if (document.getElementById("5*5").checked) {
+  firstrestrict = 5;
+} else if (document.getElementById("3*3").checked) {
+  firstrestrict = 3;
+} else {
+  firstrestrict = -1;
+}
+
+for (let i = 0; i < firstrestrictButton.length; i++) {
+  firstrestrictButton[i].addEventListener("click", () => {
+    if (firstrestrictButton[i].id == "5*5") {
+      firstrestrict = 5;
+    }
+    if (firstrestrictButton[i].id == "3*3") {
+      firstrestrict = 3;
+    }
+    if (firstrestrictButton[i].id == "none") {
+      firstrestrict = -1;
+    }
+  });
+}
+
+let area4game = new area4(firstrestrict);
 area4game.drawboard(context);
 
 resetButton.addEventListener("click", () => {
-  area4game = new area4();
+  area4game = new area4(firstrestrict);
   area4game.drawboard(context);
 });
 
@@ -43,11 +67,11 @@ canvas.addEventListener("click", (e) => {
   moveSound.play();
   area4game.drawboard(context);
   if (area4game.checkWin(inputX, inputY)) {
+    //setTimeout이 비동기 함수이기 때문에, alert가 drawboard의 작용을 막지 않는다. 지리네
     setTimeout(() => {
       if (area4game.getNextcolor() == "white") {
         alert("BLACK WIN!");
-      } //setTimeout이 비동기 함수이기 때문에, alert가 drawboard의 작용을 막지 않는다. 지리네
-      else {
+      } else {
         alert("WHITE WIN!");
       }
     });

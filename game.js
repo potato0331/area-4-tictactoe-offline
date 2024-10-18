@@ -9,8 +9,11 @@ class area4 {
   mainBoard = new Array();
   boardArray;
 
-  constructor() {
+  firstrestrict;
+
+  constructor(firstRestrict) {
     this.boardArray = Array.from(Array(9), () => new Array(9).fill(" "));
+    this.firstrestrict = firstRestrict;
   }
 
   getPosition(offsetX, offsetY) {
@@ -76,13 +79,16 @@ class area4 {
     let AvailableMoveList = new Array();
     if (this.mainBoard.length == 0) {
       //첫 수일경우
+      let restrictDistancefromCenter = (this.firstrestrict + 1) / 2;
+      let upperbound = 4 + restrictDistancefromCenter;
+      let lowerbound = 4 - restrictDistancefromCenter;
       for (let i = 0; i < 81; i++) {
         if (
           !(
-            i % 9 > 1 &&
-            i % 9 < 7 &&
-            Math.floor(i / 9) > 1 &&
-            Math.floor(i / 9) < 7
+            i % 9 > lowerbound &&
+            i % 9 < upperbound &&
+            Math.floor(i / 9) > lowerbound &&
+            Math.floor(i / 9) < upperbound
           )
         ) {
           AvailableMoveList.push(i);
@@ -186,15 +192,25 @@ class area4 {
       }
     }
 
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "red";
-    ctx.strokeRect(
-      2 * this.blockinterval + this.sideMargin,
-      2 * this.blockinterval + this.sideMargin,
-      5 * this.blockinterval,
-      5 * this.blockinterval
-    );
-    //첫수 금지선 그리기
+    if (this.firstrestrict != -1) {
+      //첫수 금지선 그리기
+      let startpoint = 0;
+      if (this.firstrestrict == 5) {
+        startpoint = 2;
+      }
+      if (this.firstrestrict == 3) {
+        startpoint = 3;
+      } //첫수 금지선의 좌상단 좌표 구함
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "red";
+      ctx.strokeRect(
+        startpoint * this.blockinterval + this.sideMargin,
+        startpoint * this.blockinterval + this.sideMargin,
+        this.firstrestrict * this.blockinterval,
+        this.firstrestrict * this.blockinterval
+      );
+    }
     /** 여기까지 보드판 영역**/
 
     for (let MoveInfo of this.mainBoard) {
