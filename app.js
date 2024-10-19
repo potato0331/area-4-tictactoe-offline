@@ -38,6 +38,7 @@ resetButton.addEventListener("click", () => {
 
 undoButton.addEventListener("click", () => {
   area4game.mainBoard.pop();
+  area4game.gameEndFlag = 0; // 게임이 끝난채로 무르기했을시, 게임이 다시 진행되게끔 설정
   area4game.drawboard(context);
 });
 
@@ -77,5 +78,13 @@ canvas.addEventListener("click", (e) => {
     });
     area4game.gameEndFlag = true;
     area4game.drawboard(context);
+  }
+  if (area4game.getAllAvailableMove().length == 0) {
+    //보드판이 꽉 차서 둘 칸이 없다면
+    setTimeout(() => {
+      alert("DRAW!");
+      area4game.gameEndFlag = true;
+      area4game.drawboard(context);
+    });
   }
 });
