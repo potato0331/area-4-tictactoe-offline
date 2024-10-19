@@ -65,9 +65,11 @@ canvas.addEventListener("click", (e) => {
   }
 
   area4game.putStone(inputX, inputY); //수 정보 입력
-  moveSound.play();
+  moveSound.play(); //탁...탁...탁...
   area4game.drawboard(context);
+
   if (area4game.checkWin(inputX, inputY)) {
+    //게임 종료여부 확인
     //setTimeout이 비동기 함수이기 때문에, alert가 drawboard의 작용을 막지 않는다. 지리네
     setTimeout(() => {
       if (area4game.getNextcolor() == "white") {
@@ -79,8 +81,9 @@ canvas.addEventListener("click", (e) => {
     area4game.gameEndFlag = true;
     area4game.drawboard(context);
   }
+
   if (area4game.getAllAvailableMove().length == 0) {
-    //보드판이 꽉 차서 둘 칸이 없다면
+    //보드판이 꽉 차서 둘 칸이 없다면 게임 종료
     setTimeout(() => {
       alert("DRAW!");
     });
