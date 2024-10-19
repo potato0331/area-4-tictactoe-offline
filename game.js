@@ -72,7 +72,7 @@ class area4 {
     ctx.fill(); // 색 채우기
   }
 
-  undoStone(boardX, boardY) {
+  undoStone() {
     let boardX = this.mainBoard[this.mainBoard.length - 1].x;
     let boardY = this.mainBoard[this.mainBoard.length - 1].y;
     this.boardArray[boardY][boardX] = " "; //boardarray에서 돌 제거
