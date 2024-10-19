@@ -83,8 +83,8 @@ canvas.addEventListener("click", (e) => {
     //보드판이 꽉 차서 둘 칸이 없다면
     setTimeout(() => {
       alert("DRAW!");
-      area4game.gameEndFlag = true;
-      area4game.drawboard(context);
     });
+    area4game.gameEndFlag = true;
+    area4game.drawboard(context);
   }
 });
