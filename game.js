@@ -72,6 +72,13 @@ class area4 {
     ctx.fill(); // 색 채우기
   }
 
+  undoStone(boardX, boardY) {
+    let boardX = this.mainBoard[this.mainBoard.length - 1].x;
+    let boardY = this.mainBoard[this.mainBoard.length - 1].y;
+    this.boardArray[boardY][boardX] = " "; //boardarray에서 돌 제거
+    this.mainBoard.pop(); //mainboard에서 수 제거
+  }
+
   getAllAvailableMove() {
     //각각의 칸을 0~80의 숫자로 표현
     //인덱스->좌표 변환식은 x=index % 9 y=Math.floor(index / 9)
