@@ -37,7 +37,7 @@ resetButton.addEventListener("click", () => {
 });
 
 undoButton.addEventListener("click", () => {
-  undoStone();
+  area4game.undoStone();
   area4game.gameEndFlag = 0; // 게임이 끝난채로 무르기했을시, 게임이 다시 진행되게끔 설정
   area4game.drawboard(context);
 });
