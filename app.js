@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 const resetButton = document.querySelector(".reset");
 const undoButton = document.querySelector(".undo");
 const firstrestrictButton = document.getElementsByName("firstrestrict");
-const moveSound = new Audio("resources/TAK.wav");
+const moveSound = new Audio("./resources/TAK.wav");
 
 let firstrestrict;
 if (document.getElementById("5*5").checked) {
