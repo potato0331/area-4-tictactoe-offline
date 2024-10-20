@@ -74,7 +74,7 @@ h1 {
   box-sizing: border-box;
   border-radius: 15px;
   width: 700px;
-  height: 300px;
+  height: 290px;
   background: #fff;
   top: 50%;
   left: 50%;
@@ -82,7 +82,7 @@ h1 {
   box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2); /*x y 번짐 색상*/
 }
 #popup > h2 {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 #popup > h2 > label {
   float: right;
