@@ -71,6 +71,8 @@ canvas.addEventListener("click", (e) => {
   if (area4game.checkWin(inputX, inputY)) {
     //게임 종료여부 확인
     //setTimeout이 비동기 함수이기 때문에, alert가 drawboard의 작용을 막지 않는다. 지리네
+    area4game.gameEndFlag = true;
+    area4game.drawboard(context);
     setTimeout(() => {
       if (area4game.getNextcolor() == "white") {
         alert("BLACK WIN!");
@@ -78,16 +80,14 @@ canvas.addEventListener("click", (e) => {
         alert("WHITE WIN!");
       }
     });
-    area4game.gameEndFlag = true;
-    area4game.drawboard(context);
   }
 
   if (area4game.mainBoard.length == 81) {
     //두어진게 81번째 수라면 게임 종료
+    area4game.gameEndFlag = true;
+    area4game.drawboard(context);
     setTimeout(() => {
       alert("DRAW!");
     });
-    area4game.gameEndFlag = true;
-    area4game.drawboard(context);
   }
 });
