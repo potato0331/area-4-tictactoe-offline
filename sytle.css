@@ -42,10 +42,55 @@ h1 {
   justify-content: center;
   width: 100%;
 }
-.rule_area {
-  text-align: center;
-  width: 100%;
+
+/* 팝업기능 */
+#rule_popup {
+  display: none; /*체크박스 지움 */
 }
+#rule_popup + label {
+  /* 이게뭐지 */
+  text-align: center;
+  display: inline-block;
+  background: black;
+  color: white;
+  font-size: 15px;
+  width: 100px;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 5px;
+}
+#layer_bg {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+#popup {
+  position: absolute;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  width: 700px;
+  height: 300px;
+  background: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2); /*x y 번짐 색상*/
+}
+#popup > h2 {
+  margin-bottom: 25px;
+}
+#popup > h2 > label {
+  float: right;
+}
+#rule_popup:checked + label + #layer_bg {
+  display: block;
+}
+
 /* 버튼 */
 .button {
   background: deepskyblue;
