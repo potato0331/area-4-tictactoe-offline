@@ -235,123 +235,57 @@ class area4 {
     //착수 가능한 영역을 노란 사각형으로 표시하기
   }
 
-  checkWin(boardX, boardY) {
-    //*주의* ssibal fucking long 내가 이거 언젠가는 최적화하고만다 ㅅㅂ
-    let color = this.boardArray[boardY][boardX];
+  checkWinOnOneDirection(boardX, boardY, color, x, y) {
+    //x,y는 가로방향시(1,0) 세로시(0,1), 대각선(1,1),(1,-1)
+    let count = 0;
     let winFlag = false;
-
-    //가로방향
-    let rowCount = 0;
     for (let i = 1; i < 4; i++) {
-      //가로방향-왼쪽방향
-      if (boardX - i < 0) {
+      if (
+        boardX - i * x < 0 ||
+        boardX - i * x > 7 ||
+        boardY - i * y < 0 ||
+        boardY - i * y > 7
+      ) {
+        //보드판 바깥이면 break
         break;
-      } //보드판 밖으로 나가면 break
-      if (this.boardArray[boardY][boardX - i] == color) {
-        rowCount++;
+      }
+      if (this.boardArray[boardY - i * y][boardX - i * x] == color) {
+        count++;
       } else {
         break;
       } //색이 다르거나 없으면 break
     }
     for (let i = 1; i < 4; i++) {
-      //가로방향-오른쪽방향
-      if (boardX + i > 8) {
+      if (
+        boardX + i * x < 0 ||
+        boardX + i * x > 7 ||
+        boardY + i * y < 0 ||
+        boardY + i * y > 7
+      ) {
         break;
       }
-      if (this.boardArray[boardY][boardX + i] == color) {
-        rowCount++;
+      if (this.boardArray[boardY + i * y][boardX + i * x] == color) {
+        count++;
       } else {
         break;
       }
     }
-    if (rowCount >= 3) {
+    if (count >= 3) {
       winFlag = true;
     } //가로방향을 합쳐서 3이상이면(착수된 돌 포함4개) winFlag에 표시
-
-    //세로방향
-    let columnCount = 0;
-    for (let i = 1; i < 4; i++) {
-      //세로방향-위쪽방향
-      if (boardY - i < 0) {
-        break;
-      }
-      if (this.boardArray[boardY - i][boardX] == color) {
-        columnCount++;
-      } else {
-        break;
-      }
-    }
-    for (let i = 1; i < 4; i++) {
-      //가로방향-아래쪽방향
-      if (boardY + i > 8) {
-        break;
-      }
-      if (this.boardArray[boardY + i][boardX] == color) {
-        columnCount++;
-      } else {
-        break;
-      }
-    }
-    if (columnCount >= 3) {
-      winFlag = true;
-    }
-
-    //좌상단-우하단대각선방향
-    let NWtoSEdiagonalCount = 0;
-    for (let i = 1; i < 4; i++) {
-      //좌상단방향
-      if (boardY - i < 0 || boardX - i < 0) {
-        break;
-      }
-      if (this.boardArray[boardY - i][boardX - i] == color) {
-        NWtoSEdiagonalCount++;
-      } else {
-        break;
-      }
-    }
-    for (let i = 1; i < 4; i++) {
-      //우하단방향
-      if (boardY + i > 8 || boardX + i > 8) {
-        break;
-      }
-      if (this.boardArray[boardY + i][boardX + i] == color) {
-        NWtoSEdiagonalCount++;
-      } else {
-        break;
-      }
-    }
-    if (NWtoSEdiagonalCount >= 3) {
-      winFlag = true;
-    }
-
-    //우상단-좌하단대각선 방향
-    let NEtoSWdiagonalCount = 0;
-    for (let i = 1; i < 4; i++) {
-      //우상단방향
-      if (boardY - i < 0 || boardX + i > 8) {
-        break;
-      }
-      if (this.boardArray[boardY - i][boardX + i] == color) {
-        NEtoSWdiagonalCount++;
-      } else {
-        break;
-      }
-    }
-    for (let i = 1; i < 4; i++) {
-      //우하단방향
-      if (boardY + i > 8 || boardX - i < 0) {
-        break;
-      }
-      if (this.boardArray[boardY + i][boardX - i] == color) {
-        NEtoSWdiagonalCount++;
-      } else {
-        break;
-      }
-    }
-    if (NEtoSWdiagonalCount >= 3) {
-      winFlag = true;
-    }
-
     return winFlag;
+  }
+
+  checkWin(boardX, boardY) {
+    //*주의* ssibal fucking long 내가 이거 언젠가는 최적화하고만다 ㅅㅂ
+    let color = this.boardArray[boardY][boardX];
+
+    let row = this.checkWinOnOneDirection(boardX, boardY, color, 1, 0);
+    let col = this.checkWinOnOneDirection(boardX, boardY, color, 0, 1);
+    let NWtoSE = this.checkWinOnOneDirection(boardX, boardY, color, 1, 1);
+    let NEtoSW = this.checkWinOnOneDirection(boardX, boardY, color, 1, -1);
+    let win = row || col || NWtoSE || NEtoSW;
+
+    return win;
   }
 }
