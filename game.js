@@ -277,7 +277,6 @@ class area4 {
   }
 
   checkWin(boardX, boardY) {
-    //*주의* ssibal fucking long 내가 이거 언젠가는 최적화하고만다 ㅅㅂ
     let color = this.boardArray[boardY][boardX];
 
     let row = this.checkWinOnOneDirection(boardX, boardY, color, 1, 0);
