@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 const resetButton = document.querySelector(".reset");
 const undoButton = document.querySelector(".undo");
 const firstrestrictButton = document.getElementsByName("firstrestrict");
-const moveSound = new Audio("./resources/TAK.wav");
+const moveSound = new Audio("./resources/TAK.wav"); //음질 개구림 대체할거 어디서찾니..
 const errorSound = new Audio("./resources/error.mp3");
 const tostmessage = document.getElementById("wrongmove_tost");
 
@@ -66,8 +66,8 @@ canvas.addEventListener("click", (e) => {
     tostmessage.classList.add("active");
     setTimeout(() => {
       tostmessage.classList.remove("active");
-    }, 1000);
-    //토스트메세지 띄우고 1초후 사라지게함
+    }, 500);
+    //토스트메세지 띄우고 0.5초후 사라지게함
     return;
   }
 
