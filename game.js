@@ -226,7 +226,7 @@ class area4 {
     // 바둑알 그리기
 
     this.drawLastStone(ctx);
-    //두어진 수에 빨간 표시
+    //두어진 수에 점 표시
 
     if (!this.gameEndFlag) {
       //게임이 끝난게 아니라면

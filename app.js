@@ -4,6 +4,8 @@ const resetButton = document.querySelector(".reset");
 const undoButton = document.querySelector(".undo");
 const firstrestrictButton = document.getElementsByName("firstrestrict");
 const moveSound = new Audio("./resources/TAK.wav");
+const errorSound = new Audio("./resources/error.mp3");
+const tostmessage = document.getElementById("wrongmove_tost");
 
 let firstrestrict;
 if (document.getElementById("5*5").checked) {
@@ -12,7 +14,7 @@ if (document.getElementById("5*5").checked) {
   firstrestrict = 3;
 } else {
   firstrestrict = -1;
-}
+} //뭐 사실 5*5기본설정인시점에 그냥 5로설정하고 넘어가도 되긴할겁니다. 이게 더 안전하긴함
 
 for (let i = 0; i < firstrestrictButton.length; i++) {
   firstrestrictButton[i].addEventListener("click", () => {
@@ -26,7 +28,7 @@ for (let i = 0; i < firstrestrictButton.length; i++) {
       firstrestrict = -1;
     }
   });
-}
+} //설정 변경시마다 firstrestrict의 값을 바꿈
 
 let area4game = new area4(firstrestrict);
 area4game.drawboard(context);
@@ -60,7 +62,12 @@ canvas.addEventListener("click", (e) => {
       .find((element) => element == inputX + 9 * inputY) === undefined
   ) {
     //착수 할 수 없는 곳 이므로 클릭시 무시
-    alert("착수 할 수 없는 곳 입니다.");
+    errorSound.play();
+    tostmessage.classList.add("active");
+    setTimeout(() => {
+      tostmessage.classList.remove("active");
+    }, 1000);
+    //토스트메세지 띄우고 1초후 사라지게함
     return;
   }
 
