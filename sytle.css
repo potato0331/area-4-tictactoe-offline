@@ -9,10 +9,6 @@
   font-family: "Maplestory_Light", sans-serif;
 }
 /* *=전체선택자, 모든걸 선택해서 안쪽,바깥쪽여백을 모두 지움 */
-h1 {
-  text-align: center;
-}
-
 .logo_area {
   margin: 10px;
   display: flex;
