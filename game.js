@@ -200,15 +200,9 @@ class area4 {
     }
 
     if (this.firstrestrict != -1) {
-      //첫수 금지선 그리기
-      let startpoint = 0;
-      if (this.firstrestrict == 5) {
-        startpoint = 2;
-      }
-      if (this.firstrestrict == 3) {
-        startpoint = 3;
-      } //첫수 금지선의 좌상단 좌표 구함
-
+      //선공 제한 구역이 설정되어 있다면 첫수 금지선 그리기
+      let startpoint = 4 - (this.firstrestrict - 1) / 2;
+      //첫수 금지선의 좌상단 좌표 구함 7->1 5->2 3->3
       ctx.lineWidth = 2;
       ctx.strokeStyle = "red";
       ctx.strokeRect(

@@ -8,7 +8,9 @@ const errorSound = new Audio("./resources/error.mp3");
 const tostmessage = document.getElementById("wrongmove_tost");
 
 let firstrestrict;
-if (document.getElementById("5*5").checked) {
+if (document.getElementById("7*7").checked) {
+  firstrestrict = 7;
+} else if (document.getElementById("5*5").checked) {
   firstrestrict = 5;
 } else if (document.getElementById("3*3").checked) {
   firstrestrict = 3;
@@ -18,6 +20,9 @@ if (document.getElementById("5*5").checked) {
 
 for (let i = 0; i < firstrestrictButton.length; i++) {
   firstrestrictButton[i].addEventListener("click", () => {
+    if (firstrestrictButton[i].id == "7*7") {
+      firstrestrict = 7;
+    }
     if (firstrestrictButton[i].id == "5*5") {
       firstrestrict = 5;
     }
