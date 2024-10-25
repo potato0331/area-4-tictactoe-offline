@@ -16,7 +16,7 @@ if (document.getElementById("7*7").checked) {
   firstrestrict = 3;
 } else {
   firstrestrict = -1;
-} //뭐 사실 5*5기본설정인시점에 그냥 5로설정하고 넘어가도 되긴할겁니다. 이게 더 안전하긴함
+} //최초의 firstrestrict값을 설정함 (뭐 사실 5*5기본설정인시점에 그냥 5로설정하고 넘어가도 되긴할겁니다. 이게 더 안전하긴함)
 
 for (let i = 0; i < firstrestrictButton.length; i++) {
   firstrestrictButton[i].addEventListener("click", () => {

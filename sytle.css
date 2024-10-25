@@ -22,6 +22,7 @@
   height: 101px;
 }
 
+/* 보드판 */
 .canvas {
   border: 3px solid black;
   background: burlywood;
@@ -53,6 +54,7 @@
   opacity: 100%;
 }
 
+/* 버튼구역 */
 .button_area {
   margin-top: 5px;
   display: flex;
@@ -60,11 +62,30 @@
   justify-content: center;
   width: 100%;
 }
+
+/* 버튼 */
+.button {
+  background: deepskyblue;
+  border: none;
+  font-size: 15px;
+  color: white;
+  width: 100px;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 5px;
+}
+
+/* 설정구역 */
 .setting_area {
+  margin-top: 5px;
+  font-size: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+span {
+  font-weight: bold;
 }
 
 /* 팝업기능 */
@@ -114,22 +135,6 @@
 #rule_popup:checked + label + #layer_bg {
   display: block;
 }
-
-/* 버튼 */
-.button {
-  background: deepskyblue;
-  border: none;
-  font-size: 15px;
-  color: white;
-  width: 100px;
-  padding: 5px;
-  margin: 3px;
-  border-radius: 5px;
-}
-span {
-  font-weight: bold;
-}
-.setting_area {
-  margin-top: 5px;
-  font-size: 17px;
+#version {
+  text-align: right;
 }
